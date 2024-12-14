@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товари</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-image {
+            width: 250px; /* Увеличенная ширина */
+            height: 175px; /* Увеличенная высота */
+            object-fit: cover; /* Сохранение пропорций без искажений */
+            border-radius: 10px; /* Скругление углов (по желанию) */
+        }
+
+        .back-button {
+            background-color: transparent; /* Прозрачный фон */
+            border: none; /* Убираем рамку */
+            border-radius: 50%; /* Круглая форма */
+            cursor: pointer; /* Указываем, что это кнопка */
+            font-size: 30px; /* Размер стрелки */
+            color: #007bff; /* Цвет стрелки */
+            padding: 10px; /* Отступы вокруг стрелки */
+            transition: background-color 0.3s; /* Плавный переход цвета */
+        }
+
+        .back-button:hover {
+            background-color: #e9ecef; /* Цвет при наведении */
+        }
+
+        .products-section {
+            display: flex; /* Используем flexbox для расположения карточек товара */
+            flex-wrap: wrap; /* Позволяем карточкам переноситься на следующую строку */
+            justify-content: center; /* Центрируем карточки */
+            margin: 20px 0; /* Отступы сверху и снизу */
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column; /* Вертикальное расположение элементов внутри карточки */
+            border: 1px solid #ccc; /* Рамка вокруг карточки */
+            border-radius: 10px; /* Скругление углов карточки */
+            margin: 15px; /* Отступы вокруг карточки */
+            padding: 10px; /* Отступы внутри карточки */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Центрируем текст внутри карточки */
+            transition: transform 0.2s; /* Плавный эффект при наведении */
+            width: calc(33.33% - 30px); /* Установка ширины для трех карточек в ряд с учетом отступов */
+        }
+
+        .product-card:hover {
+            transform: scale(1.05); /* Эффект увеличения при наведении */
+        }
+
+        .price {
+            font-size: 1.2em;
+            color: #28a745; /* Зеленый цвет для цены */
+            margin: 10px 0; /* Отступы для цены */
+        }
+
+        .order-button {
+            background-color: #007bff; /* Цвет кнопки "Замовити" */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Плавный переход для фона и увеличения */
+            padding: 10px; /* Отступы для кнопки */
+            width: 100%; /* Ширина кнопки на всю ширину карточки */
+        }
+
+        .order-button:hover {
+            background-color: #0056b3; /* Цвет при наведении */
+            transform: scale(1.05); /* Эффект увеличения при наведении */
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: calc(50% - 30px); /* Два товара в ряд на меньших экранах */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: calc(100% - 30px); /* Один товар в ряд на маленьких экранах */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="depositphotos_23428992-stock-illustration-a-swimming-pool-removebg-preview(1).png" alt="Логотип" class="logo-img">
+            <h1 class="logo-text">Магазин Бассейнів</h1>
+        </div>
+        <nav class="navbar">
+            <button onclick="navigateTo('index')" class="nav-button">Головна</button>
+            <button onclick="navigateTo('about')" class="nav-button">Про нас</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h2 class="welcome-heading">Ласкаво просимо до нашого магазину!</h2>
+        </section>
+
+        <section class="products-section">
+            {% block content %}{% endblock %}
+        </section>
+
+        <button class="back-button" onclick="navigateTo('index')">⬅️</button> <!-- Стрелка назад -->
+    </main>
+
+    <footer>
+        <p>© 2024 Магазин Бассейнів. Всі права захищені.</p>
+    </footer>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page + '.html'; // Переход на іншу сторінку
+        }
+    </script>
+</body>
+</html>

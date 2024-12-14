@@ -1,0 +1,15 @@
+{% extends 'products.html' %}
+
+{% block content %}
+    {% for card in products %}
+        <div class="product-card">
+                <img src="{{ url_for('static', filename='img/' + card[5]) }}" alt={{card[1]}}  class="product-image">
+                <h3>{{card[1]}}</h3>
+                <p class="price">{{card[3]}}</p>
+                <p>Опис: {{card[2]}}</p>
+                <button class="order-button" onclick="navigateTo('order')">Замовити</button>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+

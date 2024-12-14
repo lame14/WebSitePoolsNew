@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Замовлення</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <style>
+        /* Стиль для кнопки "Назад" */
+        .back-button {
+            background-color: transparent; /* Прозрачный фон */
+            border: none; /* Убираем рамку */
+            border-radius: 50%; /* Круглая форма */
+            cursor: pointer; /* Указываем, что это кнопка */
+            font-size: 30px; /* Размер стрелки */
+            color: #007bff; /* Цвет стрелки */
+            padding: 10px; /* Отступы вокруг стрелки */
+            transition: background-color 0.3s, transform 0.3s; /* Плавный переход цвета и анимация */
+            position: fixed; /* Фиксированное положение */
+            top: 20px; /* Расположение в верхнем левом углу */
+            left: 20px; /* Расположение в левом углу */
+            z-index: 1000; /* Поверх остальных элементов */
+        }
+
+        .back-button:hover {
+            background-color: #e9ecef; /* Цвет при наведении */
+            transform: scale(1.1); /* Увеличение при наведении */
+        }
+
+        /* Основные стили для главной секции */
+        main {
+            text-align: center; /* Центрирование текста */
+            margin-top: 20px; /* Отступ сверху */
+            animation: fadeIn 1s ease-in-out; /* Плавная анимация при загрузке */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0; /* Начальная прозрачность */
+            }
+            to {
+                opacity: 1; /* Конечная прозрачность */
+            }
+        }
+
+        .order-form {
+            background-color: #f8f9fa; /* Светлый фон формы */
+            padding: 20px; /* Отступы внутри формы */
+            border-radius: 10px; /* Закругленные углы */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+            margin-top: 20px; /* Отступ сверху */
+            display: inline-block; /* Внутренний блочный элемент */
+        }
+
+        label {
+            display: block; /* Блочный элемент для меток */
+            margin: 10px 0 5px; /* Отступы вокруг меток */
+            font-size: 1.2em; /* Увеличенный размер шрифта */
+        }
+
+        select, input[type="number"] {
+            width: 100%; /* Ширина 100% для удобства */
+            padding: 10px; /* Отступы внутри поля */
+            margin: 5px 0; /* Отступы сверху и снизу */
+            border-radius: 5px; /* Закругленные углы */
+            border: 2px solid #007bff; /* Синяя рамка */
+            font-size: 1em; /* Размер шрифта */
+            transition: border-color 0.3s; /* Плавный переход цвета рамки */
+        }
+
+        select:hover, input[type="number"]:hover {
+            border-color: #0056b3; /* Темный цвет рамки при наведении */
+        }
+
+        .order-button {
+            background-color: #28a745; /* Зеленый фон */
+            color: white; /* Белый текст */
+            border: none; /* Убираем рамку */
+            border-radius: 5px; /* Закругленные углы */
+            padding: 15px 30px; /* Отступы */
+            cursor: pointer; /* Указатель при наведении */
+            transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+            font-size: 1.2em; /* Размер шрифта */
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        .order-button:hover {
+            background-color: #218838; /* Темный фон при наведении */
+            transform: scale(1.05); /* Увеличение при наведении */
+        }
+
+        .order-info {
+            text-align: center; /* Центрирование текста */
+            margin: 20px 0; /* Отступы сверху и снизу */
+        }
+
+        .product-image-order {
+            width: 80%; /* Ширина изображения */
+            max-width: 300px; /* Максимальная ширина */
+            height: auto; /* Автоматическая высота */
+            margin: 0 auto; /* Центрирование */
+            border-radius: 10px; /* Закругленные углы */
+            margin-bottom: 15px; /* Отступ снизу */
+        }
+
+        footer {
+            text-align: center; /* Центрирование текста */
+            margin-top: 20px; /* Отступ сверху */
+            padding: 20px; /* Отступы внутри */
+            background-color: #0056b3; /* Темный фон */
+            color: white; /* Белый текст */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+            border-radius: 10px; /* Закругленные углы */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="depositphotos_23428992-stock-illustration-a-swimming-pool-removebg-preview(1).png" alt="Логотип" class="logo-img">
+            <h1 class="logo-text">Магазин Бассейнів</h1>
+        </div>
+        <nav class="navbar">
+            <button onclick="navigateTo('index')" class="nav-button">Головна</button>
+            <button onclick="navigateTo('products')" class="nav-button">Товари</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Замовлення</h2>
+        <div class="order-info">
+            <img id="product-image" src="" alt="Фото продукту" class="product-image-order">
+            <p id="product-description" class="product-description"></p>
+        </div>
+
+        <div class="order-form">
+            <label for="product">Виберіть товар:</label>
+            <select id="product" onchange="updateProductInfo()">
+                <option value="Басейн 1" data-image="images (2).jpg" data-description="Басейн 1 — ідеальний вибір для вашої сім’ї.">Басейн 1</option>
+                <option value="Басейн 2" data-image="форма 2.jpg" data-description="Басейн 2 — це ваш відпочинок влітку!">Басейн 2</option>
+                <option value="Басейн 3" data-image="Форма 3.png" data-description="Басейн 3 — ваш персональний курорт на задньому дворі!">Басейн 3</option>
+                <option value="Басейн 4" data-image="pool 4.jpg" data-description="Басейн 4 — втілення стилю і функціональності.">Басейн 4</option>
+                <option value="Басейн 5" data-image="pool 5.webp" data-description="Басейн 5 — це поєднання розкоші і доступності.">Басейн 5</option>
+                <option value="Басейн 6" data-image="pool 6.jpg" data-description="Басейн 6 — ваш ідеальний вибір для активного відпочинку!">Басейн 6</option>
+            </select>
+
+            <label for="depth">Виберіть глибину:</label>
+            <select id="depth">
+                <option value="1.0">1.0 м</option>
+                <option value="1.5">1.5 м</option>
+                <option value="2.0">2.0 м</option>
+                <option value="2.5">2.5 м</option>
+            </select>
+
+            <label for="quantity">Кількість:</label>
+            <input type="number" id="quantity" value="1" min="1">
+
+            <button class="order-button" onclick="submitOrder()">Замовити</button>
+        </div>
+
+        <button class="back-button" onclick="navigateTo('products')">⬅️</button> <!-- Стрелка назад -->
+    </main>
+
+    <footer>
+        <p>© 2024 Магазин Бассейнів. Всі права захищені.</p>
+    </footer>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page + '.html'; // Переход на іншу сторінку
+        }
+
+        function updateProductInfo() {
+            const select = document.getElementById('product');
+            const selectedOption = select.options[select.selectedIndex];
+            const image = selectedOption.getAttribute('data-image');
+            const description = selectedOption.getAttribute('data-description');
+
+            document.getElementById('product-image').src = image;
+            document.getElementById('product-description').textContent = description;
+        }
+
+        function submitOrder() {
+            const product = document.getElementById('product').value;
+            const depth = document.getElementById('depth').value;
+            const quantity = document.getElementById('quantity').value;
+
+            alert(`Ваше замовлення на ${quantity} ${product} з глибиною ${depth} м успішно оформлено!`);
+        }
+
+        window.onload = updateProductInfo; // Обновляем информацию при загрузке страницы
+    </script>
+</body>
+</html>
