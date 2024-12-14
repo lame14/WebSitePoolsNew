@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Товари</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style/style.css')}}">
     <style>
         .product-image {
             width: 250px; /* Увеличенная ширина */
@@ -90,12 +90,12 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="depositphotos_23428992-stock-illustration-a-swimming-pool-removebg-preview(1).png" alt="Логотип" class="logo-img">
+            <img src="{{url_for('static', filename='img/logotipe.png')}}" alt="Логотип" class="logo-img">
             <h1 class="logo-text">Магазин Бассейнів</h1>
         </div>
         <nav class="navbar">
-            <button onclick="navigateTo('index')" class="nav-button">Головна</button>
-            <button onclick="navigateTo('about')" class="nav-button">Про нас</button>
+            <a href="{{url_for('index')}}" class="nav-button">Головна</a>
+            <a href="{{url_for('about')}}" class="nav-button">Про нас</a>
         </nav>
     </header>
 
