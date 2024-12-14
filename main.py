@@ -15,9 +15,14 @@ def products():
 @app.route("/")
 def index():
     return render_template('index.html')
+
 @app.route("/about")
 def about():
     return render_template('about.html')
+
+@app.route("/order")
+def order():
+    return render_template('order.html')
 
 
 app.run(debug=True)

@@ -50,6 +50,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
             margin-top: 20px; /* Отступ сверху */
             display: inline-block; /* Внутренний блочный элемент */
+            max-width: 500px; /* Максимальная ширина формы */
+            width: 100%; /* Ширина 100% */
         }
 
         label {
@@ -117,31 +119,33 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="depositphotos_23428992-stock-illustration-a-swimming-pool-removebg-preview(1).png" alt="Логотип" class="logo-img">
+            <img src="{{ url_for('static', filename='img/logotipe.png') }}" alt="Логотип" class="logo-img">
             <h1 class="logo-text">Магазин Бассейнів</h1>
         </div>
         <nav class="navbar">
-            <button onclick="navigateTo('index')" class="nav-button">Головна</button>
-            <button onclick="navigateTo('products')" class="nav-button">Товари</button>
+            <a href="{{ url_for('index') }}" class="nav-button">Головна</a>
+            <a href="{{ url_for('about') }}" class="nav-button">Про нас</a>
+            <a href="{{ url_for('products') }}" class="nav-button">Товари</a>
+            <a href="{{ url_for('order') }}" class="nav-button">Замовлення</a> <!-- Добавлено -->
         </nav>
     </header>
 
     <main>
         <h2>Замовлення</h2>
         <div class="order-info">
-            <img id="product-image" src="" alt="Фото продукту" class="product-image-order">
+            <img id="product-image" src="{{ url_for('static', filename='img/default.jpg') }}" alt="Фото продукту" class="product-image-order"> <!-- Добавлен default image -->
             <p id="product-description" class="product-description"></p>
         </div>
 
         <div class="order-form">
             <label for="product">Виберіть товар:</label>
             <select id="product" onchange="updateProductInfo()">
-                <option value="Басейн 1" data-image="images (2).jpg" data-description="Басейн 1 — ідеальний вибір для вашої сім’ї.">Басейн 1</option>
-                <option value="Басейн 2" data-image="форма 2.jpg" data-description="Басейн 2 — це ваш відпочинок влітку!">Басейн 2</option>
-                <option value="Басейн 3" data-image="Форма 3.png" data-description="Басейн 3 — ваш персональний курорт на задньому дворі!">Басейн 3</option>
-                <option value="Басейн 4" data-image="pool 4.jpg" data-description="Басейн 4 — втілення стилю і функціональності.">Басейн 4</option>
-                <option value="Басейн 5" data-image="pool 5.webp" data-description="Басейн 5 — це поєднання розкоші і доступності.">Басейн 5</option>
-                <option value="Басейн 6" data-image="pool 6.jpg" data-description="Басейн 6 — ваш ідеальний вибір для активного відпочинку!">Басейн 6</option>
+                <option value="Басейн 1" data-image="{{ url_for('static', filename='img/images (2).jpg') }}" data-description="Басейн 1 — ідеальний вибір для вашої сім’ї.">Басейн 1</option>
+                <option value="Басейн 2" data-image="{{ url_for('static', filename='img/форма 2.jpg') }}" data-description="Басейн 2 — це ваш відпочинок влітку!">Басейн 2</option>
+                <option value="Басейн 3" data-image="{{ url_for('static', filename='img/Форма 3.png') }}" data-description="Басейн 3 — ваш персональний курорт на задньому дворі!">Басейн 3</option>
+                <option value="Басейн 4" data-image="{{ url_for('static', filename='img/pool 4.jpg') }}" data-description="Басейн 4 — втілення стилю і функціональності.">Басейн 4</option>
+                <option value="Басейн 5" data-image="{{ url_for('static', filename='img/pool 5.webp') }}" data-description="Басейн 5 — це поєднання розкоші і доступності.">Басейн 5</option>
+                <option value="Басейн 6" data-image="{{ url_for('static', filename='img/pool 6.jpg') }}" data-description="Басейн 6 — ваш ідеальний вибір для активного відпочинку!">Басейн 6</option>
             </select>
 
             <label for="depth">Виберіть глибину:</label>
@@ -158,7 +162,7 @@
             <button class="order-button" onclick="submitOrder()">Замовити</button>
         </div>
 
-        <button class="back-button" onclick="navigateTo('products')">⬅️</button> <!-- Стрелка назад -->
+        <button class="back-button" onclick="goBack()">⬅️</button> <!-- Изменено -->
     </main>
 
     <footer>
@@ -166,8 +170,8 @@
     </footer>
 
     <script>
-        function navigateTo(page) {
-            window.location.href = page + '.html'; // Переход на іншу сторінку
+        function goBack() {
+            window.location.href = "{{ url_for('products') }}"; // Переход на маршрут Flask
         }
 
         function updateProductInfo() {
@@ -185,6 +189,7 @@
             const depth = document.getElementById('depth').value;
             const quantity = document.getElementById('quantity').value;
 
+            // Здесь вы можете добавить логику отправки данных на сервер
             alert(`Ваше замовлення на ${quantity} ${product} з глибиною ${depth} м успішно оформлено!`);
         }
 

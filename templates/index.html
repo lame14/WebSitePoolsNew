@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Головна</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style/style.css')}}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -136,12 +136,12 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="url_for('static', filename='img/depositphotos_23428992-stock-illustration-a-swimming-pool-removebg-preview(1).png')" alt="Логотип" class="logo-img">
+            <img src="{{url_for('static', filename='img/logotipe.png')}}" alt="Логотип" class="logo-img">
             <h1 class="logo-text">Магазин Бассейнів</h1>
         </div>
         <nav class="navbar">
-            <a href="{{url_for('products')}}" class="nav-button">Товари</a>
             <a href="{{url_for('about')}}" class="nav-button">Про нас</a>
+            <a href="{{url_for('products')}}" class="nav-button">Товари</a>
         </nav>
     </header>
 

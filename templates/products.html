@@ -108,7 +108,6 @@
             {% block content %}{% endblock %}
         </section>
 
-        <button class="back-button" onclick="navigateTo('index')">⬅️</button> <!-- Стрелка назад -->
     </main>
 
     <footer>
@@ -117,7 +116,7 @@
 
     <script>
         function navigateTo(page) {
-            window.location.href = page + '.html'; // Переход на іншу сторінку
+            window.location.href = page; // Переход на іншу сторінку
         }
     </script>
 </body>
