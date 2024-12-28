@@ -6,7 +6,7 @@ cursor = sqlite3.Cursor(connection)
 
 # Видалення старої таблиці (якщо вона існує) для тестування
 cursor.execute("DROP TABLE IF EXISTS products")
-cursor.execute("DROP TABLE IF EXISTS shopping_cart")
+cursor.execute("DROP TABLE IF EXISTS feedback")
 
 # Створення таблиці products, додано нове поле image_name
 request = ("CREATE TABLE IF NOT EXISTS products"
@@ -19,12 +19,11 @@ request = ("CREATE TABLE IF NOT EXISTS products"
 cursor.execute(request)
 
 # Створення таблиці shopping_cart для збереження інформації про товари в корзині
-shopping_cart_request = ("CREATE TABLE IF NOT EXISTS shopping_cart"
+feedback = ("CREATE TABLE IF NOT EXISTS feedback"
                         "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "product_id INTEGER,"
-                        "quantity INTEGER,"
-                        "FOREIGN KEY(product_id) REFERENCES products(id))")
-cursor.execute(shopping_cart_request)
+                        "text VARCHAR(255),"
+                        "stars INTEGER)")
+cursor.execute(feedback)
 
 # Вставка даних у таблицю products з новим полем image_name
 insert_request = ("INSERT INTO products"
@@ -37,11 +36,14 @@ cursor.execute(insert_request, ("бассейн 4", "Ідеальний вибі
 cursor.execute(insert_request, ("бассейн 5", "Насолоджуйтеся розкішшю та комфортом з цим басейном, що ідеально підходить для розваг в літній сезон.", "$1600", "2m", "pool 5.webp"))
 cursor.execute(insert_request, ("бассейн 6", "Відмінний вибір для тих, хто хоче створити ідеальне місце для відпочинку на свіжому повітрі.", "$3200", "2m", "pool 6.jpg"))
 
-connection.commit()
+insert_request = ("INSERT INTO feedback"
+                  "(text, stars) VALUES (?, ?)")
 
-# Додавання товарів до кошика для прикладу
-cursor.execute("INSERT INTO shopping_cart (product_id, quantity) VALUES ()")
-cursor.execute("INSERT INTO shopping_cart (product_id, quantity) VALUES ()")
+cursor.execute(insert_request, ("Чудовий сервіс! Басейн виявився ідеальним для нашої сім'ї.", "5"))
+cursor.execute(insert_request, ("Дуже задоволені покупкою, все як описано.", "4"))
+cursor.execute(insert_request, ("Басейн був доставлений вчасно. Рекомендуємо!", "5"))
+cursor.execute(insert_request, ("Дякую за чудовий продукт і швидке обслуговування!", "5"))
+cursor.execute(insert_request, ("Прекрасний досвід! Басейн став улюбленим місцем нашої родини.", "5"))
 
 # Виведення всіх товарів з таблиці products
 text = cursor.execute("SELECT * FROM products")
@@ -50,7 +52,7 @@ for line in text.fetchall():
     print(line)
 
 # Виведення всіх товарів в кошику
-cart_items = cursor.execute("SELECT * FROM shopping_cart")
+cart_items = cursor.execute("SELECT * FROM feedback")
 print("\nТовари в кошику:")
 for item in cart_items.fetchall():
     print(item)

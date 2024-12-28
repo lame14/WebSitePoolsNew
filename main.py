@@ -14,7 +14,11 @@ def products():
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    connection = sqlite3.connect("database.sqlite")
+    cursor = connection.cursor()
+    cards = cursor.execute("SELECT * FROM feedback").fetchall()
+    connection.close()
+    return render_template('index.html', feedback=cards)
 
 @app.route("/about")
 def about():

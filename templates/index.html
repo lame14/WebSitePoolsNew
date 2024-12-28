@@ -150,29 +150,20 @@
             <h2 class="welcome-heading">Ласкаво просимо до нашого магазину!</h2>
         </section>
 
-        <section class="reviews-section">
-            <h2>Відгуки наших клієнтів</h2>
-            <div class="review-card">
-                <p>Чудовий сервіс! Басейн виявився ідеальним для нашої сім'ї.</p>
-                <span class="rating">⭐⭐⭐⭐⭐</span>
+<section class="reviews-section">
+    <h2>Відгуки наших клієнтів</h2>
+    {% for f in feedback %}
+        <div class="review-card">
+            <p>{{ f[1] }}</p>
+            <div class="rating">
+                {% for star in range(f[2]) %}
+                    <span class="star">⭐</span>
+                {% endfor %}
             </div>
-            <div class="review-card">
-                <p>Дуже задоволені покупкою, все як описано.</p>
-                <span class="rating">⭐⭐⭐⭐</span>
-            </div>
-            <div class="review-card">
-                <p>Басейн був доставлений вчасно. Рекомендуємо!</p>
-                <span class="rating">⭐⭐⭐⭐⭐</span>
-            </div>
-            <div class="review-card">
-                <p>Дякую за чудовий продукт і швидке обслуговування!</p>
-                <span class="rating">⭐⭐⭐⭐⭐</span>
-            </div>
-            <div class="review-card">
-                <p>Прекрасний досвід! Басейн став улюбленим місцем нашої родини.</p>
-                <span class="rating">⭐⭐⭐⭐⭐</span>
-            </div>
-        </section>
+        </div>
+    {% endfor %}
+</section>
+
     </main>
 
     <footer>
