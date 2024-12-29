@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Залишити відгук</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style/style.css')}}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{url_for('static', filename='img/logotipe.png')}}" alt="Логотип" class="logo-img">
+            <h1 class="logo-text">Магазин Бассейнів</h1>
+        </div>
+        <nav class="navbar">
+            <a href="{{url_for('about')}}" class="nav-button">Про нас</a>
+            <a href="{{url_for('products')}}" class="nav-button">Товари</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Залишити відгук</h1>
+            <form method="POST" action="{{ url_for('submit_feedback') }}">
+                <label for="feedback">Ваш відгук:</label>
+                <textarea id="feedback" name="feedback" required placeholder="Поділіться вашими враженнями..."></textarea>
+
+                <label for="rating">Оцінка:</label>
+                <select id="rating" name="rating" required>
+                    <option value="1">1 - Дуже погано</option>
+                    <option value="2">2 - Погано</option>
+                    <option value="3">3 - Середньо</option>
+                    <option value="4">4 - Добре</option>
+                    <option value="5">5 - Чудово</option>
+                </select>
+
+                <button type="submit">Відправити</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Магазин Бассейнів. Всі права захищені.</p>
+    </footer>
+</body>
+</html>

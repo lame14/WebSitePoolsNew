@@ -28,5 +28,19 @@ def about():
 def order():
     return render_template('order.html')
 
+# Страница для оставления отзыва
+@app.route('/leave_feedback')
+def leave_feedback():
+    return render_template('leave_feedback.html')
+
+# Обработка формы для оставления отзыва
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    feedback = request.form['feedback']
+    rating = int(request.form['rating'])
+    # Логика сохранения отзыва в базу данных или список
+    print(f"Отзыв: {feedback}, Оценка: {rating}")
+    return redirect(url_for('index'))
+
 
 app.run(debug=True)

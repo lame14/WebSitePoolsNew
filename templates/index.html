@@ -7,50 +7,28 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style/style.css')}}">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e9ecef, #007bff);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #9face6);
             margin: 0;
             padding: 20px;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
         }
 
         header {
             display: block;
             text-align: center;
             background-color: #007bff;
-            padding: 30px;
             color: white;
+            padding: 20px 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .logo-container {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .logo-img {
-            max-width: 120px;
+            max-width: 100px;
             height: auto;
         }
 
@@ -62,7 +40,6 @@
         .navbar {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
         }
 
         .nav-button {
@@ -72,9 +49,9 @@
             border-radius: 5px;
             padding: 10px 20px;
             margin: 0 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
             font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .nav-button:hover {
@@ -89,46 +66,64 @@
         }
 
         .welcome-heading {
-            font-size: 2em;
+            font-size: 2.5em;
             color: #0056b3;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .reviews-section {
-            margin-top: 20px;
             text-align: center;
+            margin-top: 30px;
+        }
+
+        .add-review-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .add-review-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
         }
 
         .review-card {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin: 10px auto;
-            max-width: 500px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            margin: 15px auto;
+            max-width: 600px;
             width: 90%;
         }
 
         .review-card p {
-            margin: 0;
-            color: #555;
+            margin: 0 0 10px;
+            color: #333;
         }
 
         .rating {
-            display: block;
             margin-top: 10px;
             color: #ffcc00;
-            font-size: 1.2em;
+            font-size: 1.5em;
         }
 
         footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
             padding: 20px;
             background-color: #0056b3;
             color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
         }
     </style>
@@ -150,31 +145,24 @@
             <h2 class="welcome-heading">Ласкаво просимо до нашого магазину!</h2>
         </section>
 
-<section class="reviews-section">
-    <h2>Відгуки наших клієнтів</h2>
-    {% for f in feedback %}
-        <div class="review-card">
-            <p>{{ f[1] }}</p>
-            <div class="rating">
-                {% for star in range(f[2]) %}
-                    <span class="star">⭐</span>
-                {% endfor %}
-            </div>
-        </div>
-    {% endfor %}
-</section>
-
+        <section class="reviews-section">
+            <a href="{{url_for('leave_feedback')}}" class="add-review-button">Залишити відгук</a>
+            <h2>Відгуки наших клієнтів</h2>
+            {% for f in feedback %}
+                <div class="review-card">
+                    <p>{{ f[1] }}</p>
+                    <div class="rating">
+                        {% for star in range(f[2]) %}
+                            <span class="star">⭐</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
     </main>
 
     <footer>
         <p>© 2024 Магазин Бассейнів. Всі права захищені.</p>
     </footer>
-
-    <script>
-        function navigateTo(page) {
-            window.location.href = page + '.html'; // Переход на іншу сторінку
-        }
-    </script>
-    {% block cotent %}{% endblock %}
 </body>
 </html>
