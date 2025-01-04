@@ -36,10 +36,17 @@ def leave_feedback():
 # Обработка формы для оставления отзыва
 @app.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
-    feedback = request.form['feedback']
-    rating = int(request.form['rating'])
-    # Логика сохранения отзыва в базу данных или список
-    print(f"Отзыв: {feedback}, Оценка: {rating}")
+    if request.method == 'POST':
+        feedback = request.form['feedback']
+        rating = int(request.form['rating'])
+        # Логика сохранения отзыва в базу данных или список
+        print(f"Отзыв: {feedback}, Оценка: {rating}")
+        connection = sqlite3.connect("database.sqlite")
+        cursor = connection.cursor()
+
+        cursor.execute("INSERT INTO feedback (text, stars) VALUES (?,?)", (feedback, rating))
+        connection.commit()
+        connection.close()
     return redirect(url_for('index'))
 
 

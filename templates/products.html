@@ -7,82 +7,96 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style/style.css')}}">
     <style>
         .product-image {
-            width: 250px; /* Увеличенная ширина */
-            height: 175px; /* Увеличенная высота */
-            object-fit: cover; /* Сохранение пропорций без искажений */
-            border-radius: 10px; /* Скругление углов (по желанию) */
+            width: 100%;
+            height: 150px; /* Фиксированная высота изображения */
+            object-fit: cover; /* Сохранение пропорций */
+            border-radius: 10px;
         }
 
         .back-button {
-            background-color: transparent; /* Прозрачный фон */
-            border: none; /* Убираем рамку */
-            border-radius: 50%; /* Круглая форма */
-            cursor: pointer; /* Указываем, что это кнопка */
-            font-size: 30px; /* Размер стрелки */
-            color: #007bff; /* Цвет стрелки */
-            padding: 10px; /* Отступы вокруг стрелки */
-            transition: background-color 0.3s; /* Плавный переход цвета */
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 30px;
+            color: #007bff;
+            padding: 10px;
+            transition: background-color 0.3s;
         }
 
         .back-button:hover {
-            background-color: #e9ecef; /* Цвет при наведении */
+            background-color: #e9ecef;
         }
 
         .products-section {
-            display: flex; /* Используем flexbox для расположения карточек товара */
-            flex-wrap: wrap; /* Позволяем карточкам переноситься на следующую строку */
-            justify-content: center; /* Центрируем карточки */
-            margin: 20px 0; /* Отступы сверху и снизу */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
         }
 
         .product-card {
             display: flex;
-            flex-direction: column; /* Вертикальное расположение элементов внутри карточки */
-            border: 1px solid #ccc; /* Рамка вокруг карточки */
-            border-radius: 10px; /* Скругление углов карточки */
-            margin: 15px; /* Отступы вокруг карточки */
-            padding: 10px; /* Отступы внутри карточки */
+            flex-direction: column;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px; /* Отступы между карточками */
+            padding: 15px; /* Отступы внутри карточки */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Центрируем текст внутри карточки */
-            transition: transform 0.2s; /* Плавный эффект при наведении */
-            width: calc(33.33% - 30px); /* Установка ширины для трех карточек в ряд с учетом отступов */
+            text-align: center;
+            transition: transform 0.2s;
+            width: calc(25% - 20px); /* 4 карточки в ряд */
+            height: 400px; /* Высота карточки, чтобы все элементы влезли */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px; /* Высота изображения */
+            object-fit: cover; /* Изображение будет адаптироваться, не растягиваясь */
+            margin-bottom: 15px; /* Отступ между картинкой и другими элементами */
         }
 
         .product-card:hover {
-            transform: scale(1.05); /* Эффект увеличения при наведении */
+            transform: scale(1.05);
         }
 
         .price {
-            font-size: 1.2em;
-            color: #28a745; /* Зеленый цвет для цены */
+            font-size: 1.1em;
+            color: #28a745;
             margin: 10px 0; /* Отступы для цены */
         }
 
         .order-button {
-            background-color: #007bff; /* Цвет кнопки "Замовити" */
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s; /* Плавный переход для фона и увеличения */
-            padding: 10px; /* Отступы для кнопки */
-            width: 100%; /* Ширина кнопки на всю ширину карточки */
+            transition: background-color 0.3s, transform 0.3s;
+            padding: 10px;
+            width: 100%;
+            height: 40px; /* Фиксированная высота кнопки */
+            box-sizing: border-box; /* Учитываем padding в ширину и высоту */
         }
 
         .order-button:hover {
-            background-color: #0056b3; /* Цвет при наведении */
-            transform: scale(1.05); /* Эффект увеличения при наведении */
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
             .product-card {
-                width: calc(50% - 30px); /* Два товара в ряд на меньших экранах */
+                width: calc(50% - 20px); /* Два товара в ряд на меньших экранах */
             }
         }
 
         @media (max-width: 480px) {
             .product-card {
-                width: calc(100% - 30px); /* Один товар в ряд на маленьких экранах */
+                width: calc(100% - 20px); /* Один товар в ряд на маленьких экранах */
             }
         }
     </style>
@@ -116,7 +130,7 @@
 
     <script>
         function navigateTo(page) {
-            window.location.href = page; // Переход на іншу сторінку
+            window.location.href = page;
         }
     </script>
 </body>
